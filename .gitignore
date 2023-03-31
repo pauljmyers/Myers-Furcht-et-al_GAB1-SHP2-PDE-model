@@ -1,0 +1,25 @@
+
+*.eps
+*.xlsx
+*.asv
+*.mat
+*.pdf
+*.png
+*.svg
+*.afdesign
+Julia/Turing results/Turing_res_6-chains_70000-spls_posteriors_H1666_MoL_2023-01-25_19-50-00.csv
+Julia/Turing results/Turing_res_6-chains_70000-spls_posteriors_H1666_MoL.csv
+Julia/Turing results/Turing_res_6-chains_70000-spls_H1666_MoL_2023-01-25_19-50-00.jld
+Julia/Turing results/Turing_res_6-chains_120000-spls_posteriors_quantiles_2023-01-27_00-13-00.csv
+Julia/Turing results/Turing_res_6-chains_120000-spls_posteriors_quantiles.csv
+Julia/Turing results/Turing_res_6-chains_120000-spls_posteriors_2023-01-27_00-13-00.csv
+Julia/Turing results/Turing_res_6-chains_120000-spls_posteriors.csv
+Julia/Turing results/Turing_res_6-chains_120000-spls_2023-01-27_00-13-00.jld
+Julia/Turing results/Turing_res_6-chains_100000-spls_posteriors_quantiles_2023-01-25_23-34-00.csv
+Julia/Turing results/Turing_res_6-chains_100000-spls_posteriors_quantiles.csv
+Julia/Turing results/Turing_res_6-chains_100000-spls_posteriors_2023-01-25_23-34-00.csv
+Julia/Turing results/Turing_res_6-chains_100000-spls_posteriors.csv
+Julia/Turing results/Turing_res_6-chains_100000-spls_2023-01-25_23-34-00.jld
+Julia/Turing results/Turing_res_5-chains_1000-spls_posteriors_quantiles_2023-02-02_10-18-00.csv
+Julia/Turing results/Turing_res_5-chains_1000-spls_posteriors_quantiles_2023-02-01_15-39-00.csv
+Julia/Turing results/Turing_res_5-chains_1000-spls_posteriors_quantiles_2023-01-31_15-16-00.csv

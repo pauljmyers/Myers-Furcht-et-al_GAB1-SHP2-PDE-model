@@ -1,0 +1,1036 @@
+CellProfiler Pipeline: http://www.cellprofiler.org
+Version:5
+DateRevision:425
+GitHash:
+ModuleCount:67
+HasImagePlaneDetails:False
+
+Images:[module_num:1|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['To begin creating your project, use the Images module to compile a list of files and/or folders that you want to analyze. You can also specify a set of rules to include only the desired files in your selected folders.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    :
+    Filter images?:Custom
+    Select the rule criteria:and (extension does isimage) (file doesnot contain " ") (and (file does containregexp "40x|63x") (file doesnot containregexp "z-stack_[0-9].czi|zstack_[0-9].czi") (file does contain "maxz-proj") (file doesnot contain "+SHP2") (file doesnot contain "SHP2-PLA-ab-IF-ctrl") (file doesnot contain "IF-only") (file doesnot contain "_2.2")) (file does contain ".czi") (file doesnot contain "IF-only")
+
+Metadata:[module_num:2|svn_version:'Unknown'|variable_revision_number:6|show_window:False|notes:['The Metadata module optionally allows you to extract information describing your images (i.e, metadata) which will be stored along with your measurements. This information can be contained in the file name and/or location, or in an external file.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Extract metadata?:Yes
+    Metadata data type:Text
+    Metadata types:{}
+    Extraction method count:1
+    Metadata extraction method:Extract from file/folder names
+    Metadata source:File name
+    Regular expression to extract from file name:^(?P<Experiment>.*)_(?P<Sample>.*)_(?P<Treatment>.*)_(?P<Antibodies>.*)_(?P<Magnification>.*)_(?P<zstack>.*)_(?P<FOV>.*)_(?P<proj>.*).czi
+    Regular expression to extract from folder name:(?P<Date>[0-9]{4}_[0-9]{2}_[0-9]{2})$
+    Extract metadata from:All images
+    Select the filtering criteria:and (file does contain "")
+    Metadata file location:Elsewhere...|
+    Match file and image metadata:[]
+    Use case insensitive matching?:No
+    Metadata file name:None
+    Does cached metadata exist?:No
+
+NamesAndTypes:[module_num:3|svn_version:'Unknown'|variable_revision_number:8|show_window:False|notes:['The NamesAndTypes module allows you to assign a meaningful name to each image by which other modules will refer to it.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Assign a name to:All images
+    Select the image type:Color image
+    Name to assign these images:Original
+    Match metadata:[]
+    Image set matching method:Order
+    Set intensity range from:Image metadata
+    Assignments count:2
+    Single images count:0
+    Maximum intensity:255.0
+    Process as 3D?:No
+    Relative pixel spacing in X:1.0
+    Relative pixel spacing in Y:1.0
+    Relative pixel spacing in Z:1.0
+    Select the rule criteria:and (image does ismonochrome) (or (file does contain "c1"))
+    Name to assign these images:OrigStain1
+    Name to assign these objects:Cell
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+    Select the rule criteria:and (file does contain "c2")
+    Name to assign these images:OrigStain2
+    Name to assign these objects:Nucleus
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+
+Groups:[module_num:4|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['The Groups module optionally allows you to split your list of images into image subsets (groups) which will be processed independently of each other. Examples of groupings include screening batches, microtiter plates, time-lapse movies, etc.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Do you want to group your images?:No
+    grouping metadata count:5
+    Metadata category:Experiment
+    Metadata category:Sample
+    Metadata category:Treatment
+    Metadata category:Magnification
+    Metadata category:Antibodies
+
+ColorToGray:[module_num:5|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Original
+    Conversion method:Split
+    Image type:Channels
+    Name the output image:OrigGray
+    Relative weight of the red channel:1.0
+    Relative weight of the green channel:1.0
+    Relative weight of the blue channel:1.0
+    Convert red to gray?:Yes
+    Name the output image:OrigRed
+    Convert green to gray?:Yes
+    Name the output image:OrigGreen
+    Convert blue to gray?:Yes
+    Name the output image:OrigBlue
+    Convert hue to gray?:Yes
+    Name the output image:OrigHue
+    Convert saturation to gray?:Yes
+    Name the output image:OrigSaturation
+    Convert value to gray?:Yes
+    Name the output image:OrigValue
+    Channel count:4
+    Channel number:1
+    Relative weight of the channel:1.0
+    Image name:Nuclei_in
+    Channel number:4
+    Relative weight of the channel:1.0
+    Image name:PLA_in
+    Channel number:3
+    Relative weight of the channel:1.0
+    Image name:IF_in
+    Channel number:2
+    Relative weight of the channel:1.0
+    Image name:mvHRas_in
+
+RescaleIntensity:[module_num:6|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Nuclei_in
+    Name the output image:Nuclei
+    Rescaling method:Divide by the image's maximum
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+RescaleIntensity:[module_num:7|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:PLA_in
+    Name the output image:PLA
+    Rescaling method:Divide by the image's maximum
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+RescaleIntensity:[module_num:8|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:IF_in
+    Name the output image:IF
+    Rescaling method:Divide by the image's maximum
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+RescaleIntensity:[module_num:9|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:mvHRas_in
+    Name the output image:mvHRas
+    Rescaling method:Divide by the image's maximum
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+HistogramEqualization:[module_num:10|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:mvHRas
+    Name the output image:mvHRas_HistogramEqualization
+    Bins:256
+    Mask:mvHRas
+    Local:No
+    Kernel Size:256
+
+CorrectIlluminationCalculate:[module_num:11|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:mvHRas_HistogramEqualization
+    Name the output image:mvHRas_illum
+    Select how the illumination function is calculated:Regular
+    Dilate objects in the final averaged image?:No
+    Dilation radius:1
+    Block size:60
+    Rescale the illumination function?:Yes
+    Calculate function for each image individually, or based on all images?:Each
+    Smoothing method:Fit Polynomial
+    Method to calculate smoothing filter size:Automatic
+    Approximate object diameter:10
+    Smoothing filter size:10
+    Retain the averaged image?:No
+    Name the averaged image:IllumBlueAvg
+    Retain the dilated image?:No
+    Name the dilated image:IllumBlueDilated
+    Automatically calculate spline parameters?:Yes
+    Background mode:auto
+    Number of spline points:5
+    Background threshold:2.0
+    Image resampling factor:2.0
+    Maximum number of iterations:40
+    Residual value for convergence:0.001
+
+CorrectIlluminationApply:[module_num:12|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:mvHRas_HistogramEqualization
+    Name the output image:mvHRas_corrected
+    Select the illumination function:mvHRas_illum
+    Select how the illumination function is applied:Divide
+    Set output image values less than 0 equal to 0?:Yes
+    Set output image values greater than 1 equal to 1?:Yes
+
+ReduceNoise:[module_num:13|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:mvHRas_HistogramEqualization
+    Name the output image:mvHRas_ReduceNoise
+    Size:1
+    Distance:11
+    Cut-off distance:0.1
+
+IdentifyPrimaryObjects:[module_num:14|svn_version:'Unknown'|variable_revision_number:15|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:mvHRas_ReduceNoise
+    Name the primary objects to be identified:Cells_mvHRas
+    Typical diameter of objects, in pixel units (Min,Max):200,4000
+    Discard objects outside the diameter range?:No
+    Discard objects touching the border of the image?:No
+    Method to distinguish clumped objects:None
+    Method to draw dividing lines between clumped objects:Intensity
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:No
+    Fill holes in identified objects?:After both thresholding and declumping
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Minimum Cross-Entropy
+    Threshold smoothing scale:1.3488
+    Threshold correction factor:1.08
+    Lower and upper bounds on threshold:0.0,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Minimum Cross-Entropy
+
+IdentifyPrimaryObjects:[module_num:15|svn_version:'Unknown'|variable_revision_number:15|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:mvHRas_ReduceNoise
+    Name the primary objects to be identified:Cells_mvHRas
+    Typical diameter of objects, in pixel units (Min,Max):200,4000
+    Discard objects outside the diameter range?:No
+    Discard objects touching the border of the image?:No
+    Method to distinguish clumped objects:None
+    Method to draw dividing lines between clumped objects:Propagate
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:No
+    Fill holes in identified objects?:After both thresholding and declumping
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Otsu
+    Threshold smoothing scale:1.3488
+    Threshold correction factor:0.9
+    Lower and upper bounds on threshold:0.0,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Minimum Cross-Entropy
+
+CorrectIlluminationCalculate:[module_num:16|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:Nuclei
+    Name the output image:Nuclei_illum
+    Select how the illumination function is calculated:Background
+    Dilate objects in the final averaged image?:No
+    Dilation radius:1
+    Block size:60
+    Rescale the illumination function?:Yes
+    Calculate function for each image individually, or based on all images?:Each
+    Smoothing method:Fit Polynomial
+    Method to calculate smoothing filter size:Automatic
+    Approximate object diameter:10
+    Smoothing filter size:10
+    Retain the averaged image?:No
+    Name the averaged image:IllumBlueAvg
+    Retain the dilated image?:No
+    Name the dilated image:IllumBlueDilated
+    Automatically calculate spline parameters?:Yes
+    Background mode:auto
+    Number of spline points:5
+    Background threshold:2.0
+    Image resampling factor:2.0
+    Maximum number of iterations:40
+    Residual value for convergence:0.001
+
+CorrectIlluminationApply:[module_num:17|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:Nuclei
+    Name the output image:Nuclei_corrected
+    Select the illumination function:Nuclei_illum
+    Select how the illumination function is applied:Divide
+    Set output image values less than 0 equal to 0?:Yes
+    Set output image values greater than 1 equal to 1?:Yes
+
+CorrectIlluminationCalculate:[module_num:18|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:IF
+    Name the output image:IF_illum
+    Select how the illumination function is calculated:Regular
+    Dilate objects in the final averaged image?:No
+    Dilation radius:1
+    Block size:60
+    Rescale the illumination function?:Yes
+    Calculate function for each image individually, or based on all images?:Each
+    Smoothing method:Fit Polynomial
+    Method to calculate smoothing filter size:Automatic
+    Approximate object diameter:10
+    Smoothing filter size:10
+    Retain the averaged image?:No
+    Name the averaged image:IllumBlueAvg
+    Retain the dilated image?:No
+    Name the dilated image:IllumBlueDilated
+    Automatically calculate spline parameters?:Yes
+    Background mode:auto
+    Number of spline points:5
+    Background threshold:2.0
+    Image resampling factor:2.0
+    Maximum number of iterations:40
+    Residual value for convergence:0.001
+
+CorrectIlluminationApply:[module_num:19|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:IF
+    Name the output image:IF_corrected
+    Select the illumination function:IF_illum
+    Select how the illumination function is applied:Divide
+    Set output image values less than 0 equal to 0?:Yes
+    Set output image values greater than 1 equal to 1?:Yes
+
+CorrectIlluminationCalculate:[module_num:20|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:PLA
+    Name the output image:PLA_illum
+    Select how the illumination function is calculated:Regular
+    Dilate objects in the final averaged image?:No
+    Dilation radius:1
+    Block size:60
+    Rescale the illumination function?:Yes
+    Calculate function for each image individually, or based on all images?:Each
+    Smoothing method:Fit Polynomial
+    Method to calculate smoothing filter size:Automatic
+    Approximate object diameter:10
+    Smoothing filter size:10
+    Retain the averaged image?:No
+    Name the averaged image:IllumBlueAvg
+    Retain the dilated image?:No
+    Name the dilated image:IllumBlueDilated
+    Automatically calculate spline parameters?:Yes
+    Background mode:auto
+    Number of spline points:5
+    Background threshold:2.0
+    Image resampling factor:2.0
+    Maximum number of iterations:40
+    Residual value for convergence:0.001
+
+CorrectIlluminationApply:[module_num:21|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:PLA
+    Name the output image:PLA_corrected
+    Select the illumination function:PLA_illum
+    Select how the illumination function is applied:Divide
+    Set output image values less than 0 equal to 0?:Yes
+    Set output image values greater than 1 equal to 1?:Yes
+
+Opening:[module_num:22|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Nuclei
+    Name the output image:Nuclei_opened
+    Structuring element:disk,5
+
+GaussianFilter:[module_num:23|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Nuclei_opened
+    Name the output image:GaussianFilter
+    Sigma:1
+
+Opening:[module_num:24|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:GaussianFilter
+    Name the output image:Nuclei_opened2
+    Structuring element:disk,5
+
+GaussianFilter:[module_num:25|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Nuclei_opened2
+    Name the output image:GaussianFilter2
+    Sigma:1
+
+Opening:[module_num:26|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:GaussianFilter2
+    Name the output image:Nuclei_opened3
+    Structuring element:disk,2
+
+Opening:[module_num:27|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Nuclei_opened3
+    Name the output image:Nuclei_opened4
+    Structuring element:disk,2
+
+TopHatTransform:[module_num:28|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:IF_corrected
+    Name the output image:IF_TopHatTransform
+    Structuring element:disk,5
+    Operation:White top-hat transform
+
+TopHatTransform:[module_num:29|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:PLA_corrected
+    Name the output image:PLA_TopHatTransform
+    Structuring element:disk,5
+    Operation:White top-hat transform
+
+LaplacianOfGaussian:[module_num:30|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:IF_corrected
+    Name the output image:IF_LoG
+    Sigma x:3
+    Sigma y:3
+    Sigma z:3
+
+LaplacianOfGaussian:[module_num:31|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:PLA_corrected
+    Name the output image:PLA_LoG
+    Sigma x:3
+    Sigma y:3
+    Sigma z:3
+
+RescaleIntensity:[module_num:32|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:IF_LoG
+    Name the output image:IF_rescaled
+    Rescaling method:Divide by the image's minimum
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+RescaleIntensity:[module_num:33|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:IF_rescaled
+    Name the output image:IF_rescaled2
+    Rescaling method:Choose specific values to be reset to a custom range
+    Method to calculate the minimum intensity:Minimum for each image
+    Method to calculate the maximum intensity:Maximum for each image
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+RescaleIntensity:[module_num:34|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:PLA_LoG
+    Name the output image:PLA_rescaled
+    Rescaling method:Divide by the image's minimum
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+RescaleIntensity:[module_num:35|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:PLA_rescaled
+    Name the output image:PLA_rescaled2
+    Rescaling method:Choose specific values to be reset to a custom range
+    Method to calculate the minimum intensity:Minimum for each image
+    Method to calculate the maximum intensity:Maximum for each image
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+MeasureImageIntensity:[module_num:36|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select images to measure:IF_rescaled2
+    Measure the intensity only from areas enclosed by objects?:No
+    Select input object sets:
+    Calculate custom percentiles:Yes
+    Specify percentiles to measure:0
+
+ImageMath:[module_num:37|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Operation:Add
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:No
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:IF_ImageAfterMath
+    Image or measurement?:Image
+    Select the first image:IF_rescaled2
+    Multiply the first image by:1.0
+    Measurement:Intensity_MinIntensity_IF_rescaled
+    Image or measurement?:Measurement
+    Select the second image:IF_rescaled
+    Multiply the second image by:-1.0
+    Measurement:Intensity_MinIntensity_IF_rescaled2
+
+TopHatTransform:[module_num:38|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:IF_ImageAfterMath
+    Name the output image:IF_TopHatTransform
+    Structuring element:disk,15
+    Operation:White top-hat transform
+
+ImageMath:[module_num:39|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Operation:Add
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:No
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:PLA_ImageAfterMath
+    Image or measurement?:Image
+    Select the image:PLA_rescaled2
+    Multiply the image by:1.0
+    Measurement:Intensity_MinIntensity_IF_rescaled
+    Image or measurement?:Measurement
+    Select the image:IF_rescaled
+    Multiply the image by:-1.0
+    Measurement:Intensity_MinIntensity_PLA_rescaled2
+
+TopHatTransform:[module_num:40|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:PLA_corrected
+    Name the output image:PLA_TopHatTransform
+    Structuring element:disk,15
+    Operation:White top-hat transform
+
+Closing:[module_num:41|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:PLA_rescaled
+    Name the output image:PLA_closed
+    Structuring element:Disk,10
+
+Opening:[module_num:42|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:PLA_closed
+    Name the output image:PLA_opened
+    Structuring element:disk,3
+
+EnhanceOrSuppressFeatures:[module_num:43|svn_version:'Unknown'|variable_revision_number:7|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:IF_TopHatTransform
+    Name the output image:IF_enhanced
+    Select the operation:Enhance
+    Feature size:10
+    Feature type:Speckles
+    Range of hole sizes:1,10
+    Smoothing scale:2.0
+    Shear angle:0.0
+    Decay:0.95
+    Enhancement method:Tubeness
+    Speed and accuracy:Fast
+    Rescale result image:No
+
+EnhanceOrSuppressFeatures:[module_num:44|svn_version:'Unknown'|variable_revision_number:7|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:IF_corrected
+    Name the output image:IF_enhanced2
+    Select the operation:Enhance
+    Feature size:10
+    Feature type:Speckles
+    Range of hole sizes:1,10
+    Smoothing scale:2.0
+    Shear angle:0.0
+    Decay:0.95
+    Enhancement method:Tubeness
+    Speed and accuracy:Slow
+    Rescale result image:No
+
+EnhanceOrSuppressFeatures:[module_num:45|svn_version:'Unknown'|variable_revision_number:7|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:PLA_TopHatTransform
+    Name the output image:PLA_enhanced
+    Select the operation:Enhance
+    Feature size:12
+    Feature type:Speckles
+    Range of hole sizes:1,10
+    Smoothing scale:2.0
+    Shear angle:0.0
+    Decay:0.95
+    Enhancement method:Tubeness
+    Speed and accuracy:Slow
+    Rescale result image:No
+
+EnhanceOrSuppressFeatures:[module_num:46|svn_version:'Unknown'|variable_revision_number:7|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:PLA_corrected
+    Name the output image:PLA_enhanced2
+    Select the operation:Enhance
+    Feature size:40
+    Feature type:Speckles
+    Range of hole sizes:1,10
+    Smoothing scale:2.0
+    Shear angle:0.0
+    Decay:0.95
+    Enhancement method:Tubeness
+    Speed and accuracy:Slow
+    Rescale result image:No
+
+HistogramEqualization:[module_num:47|svn_version:'Unknown'|variable_revision_number:1|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:IF_enhanced
+    Name the output image:HistogramEqualization
+    Bins:256
+    Mask:Leave blank
+    Local:Yes
+    Kernel Size:256
+
+MaskImage:[module_num:48|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:IF_enhanced
+    Name the output image:IF_masked
+    Use objects or an image as a mask?:Objects
+    Select object for mask:Cells_mvHRas
+    Select image for mask:None
+    Invert the mask?:No
+
+MaskImage:[module_num:49|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:PLA_enhanced
+    Name the output image:PLA_masked
+    Use objects or an image as a mask?:Objects
+    Select object for mask:Cells_mvHRas
+    Select image for mask:None
+    Invert the mask?:No
+
+MaskImage:[module_num:50|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:PLA_enhanced2
+    Name the output image:PLA_masked
+    Use objects or an image as a mask?:Objects
+    Select object for mask:Cells_mvHRas
+    Select image for mask:None
+    Invert the mask?:No
+
+IdentifyPrimaryObjects:[module_num:51|svn_version:'Unknown'|variable_revision_number:15|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Nuclei_opened4
+    Name the primary objects to be identified:Nuclei_primary_objects
+    Typical diameter of objects, in pixel units (Min,Max):100,500
+    Discard objects outside the diameter range?:Yes
+    Discard objects touching the border of the image?:No
+    Method to distinguish clumped objects:Intensity
+    Method to draw dividing lines between clumped objects:Intensity
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:No
+    Fill holes in identified objects?:After both thresholding and declumping
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Robust Background
+    Threshold smoothing scale:0
+    Threshold correction factor:1
+    Lower and upper bounds on threshold:0.0,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:1
+    Thresholding method:Minimum Cross-Entropy
+
+IdentifySecondaryObjects:[module_num:52|svn_version:'Unknown'|variable_revision_number:10|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input objects:Nuclei_primary_objects
+    Name the objects to be identified:Cells_mvHRas_2ndry
+    Select the method to identify the secondary objects:Propagation
+    Select the input image:mvHRas_ReduceNoise
+    Number of pixels by which to expand the primary objects:10
+    Regularization factor:0.05
+    Discard secondary objects touching the border of the image?:No
+    Discard the associated primary objects?:No
+    Name the new primary objects:FilteredNuclei
+    Fill holes in identified objects?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Otsu
+    Threshold smoothing scale:1.3488
+    Threshold correction factor:0.9
+    Lower and upper bounds on threshold:0.0,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Minimum Cross-Entropy
+
+IdentifySecondaryObjects:[module_num:53|svn_version:'Unknown'|variable_revision_number:10|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input objects:Nuclei_primary_objects
+    Name the objects to be identified:Cells_mvHRas_2ndry
+    Select the method to identify the secondary objects:Propagation
+    Select the input image:mvHRas_ReduceNoise
+    Number of pixels by which to expand the primary objects:10
+    Regularization factor:0.05
+    Discard secondary objects touching the border of the image?:No
+    Discard the associated primary objects?:No
+    Name the new primary objects:FilteredNuclei
+    Fill holes in identified objects?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Minimum Cross-Entropy
+    Threshold smoothing scale:1.3488
+    Threshold correction factor:1.08
+    Lower and upper bounds on threshold:0.0,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Minimum Cross-Entropy
+
+IdentifyPrimaryObjects:[module_num:54|svn_version:'Unknown'|variable_revision_number:15|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:IF_masked
+    Name the primary objects to be identified:EGFR_primary
+    Typical diameter of objects, in pixel units (Min,Max):2,15
+    Discard objects outside the diameter range?:Yes
+    Discard objects touching the border of the image?:Yes
+    Method to distinguish clumped objects:None
+    Method to draw dividing lines between clumped objects:Intensity
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:Yes
+    Fill holes in identified objects?:After both thresholding and declumping
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Minimum Cross-Entropy
+    Threshold smoothing scale:0
+    Threshold correction factor:1.0
+    Lower and upper bounds on threshold:0.05,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Background
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Minimum Cross-Entropy
+
+IdentifyPrimaryObjects:[module_num:55|svn_version:'Unknown'|variable_revision_number:15|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:IF_enhanced2
+    Name the primary objects to be identified:EGFR_primary2
+    Typical diameter of objects, in pixel units (Min,Max):2,15
+    Discard objects outside the diameter range?:Yes
+    Discard objects touching the border of the image?:Yes
+    Method to distinguish clumped objects:None
+    Method to draw dividing lines between clumped objects:Intensity
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:Yes
+    Fill holes in identified objects?:After both thresholding and declumping
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Minimum Cross-Entropy
+    Threshold smoothing scale:0
+    Threshold correction factor:1.0
+    Lower and upper bounds on threshold:0.05,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Background
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Minimum Cross-Entropy
+
+IdentifyPrimaryObjects:[module_num:56|svn_version:'Unknown'|variable_revision_number:15|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input image:PLA_masked
+    Name the primary objects to be identified:PLA_primary_objects_old
+    Typical diameter of objects, in pixel units (Min,Max):5,30
+    Discard objects outside the diameter range?:Yes
+    Discard objects touching the border of the image?:Yes
+    Method to distinguish clumped objects:Shape
+    Method to draw dividing lines between clumped objects:Shape
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:Yes
+    Fill holes in identified objects?:After both thresholding and declumping
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Minimum Cross-Entropy
+    Threshold smoothing scale:0
+    Threshold correction factor:0.2
+    Lower and upper bounds on threshold:0.1,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Sauvola
+
+IdentifyPrimaryObjects:[module_num:57|svn_version:'Unknown'|variable_revision_number:15|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:PLA_enhanced2
+    Name the primary objects to be identified:PLA_primary_objects
+    Typical diameter of objects, in pixel units (Min,Max):5,50
+    Discard objects outside the diameter range?:Yes
+    Discard objects touching the border of the image?:Yes
+    Method to distinguish clumped objects:Shape
+    Method to draw dividing lines between clumped objects:None
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:Yes
+    Fill holes in identified objects?:After both thresholding and declumping
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Minimum Cross-Entropy
+    Threshold smoothing scale:0
+    Threshold correction factor:0.2
+    Lower and upper bounds on threshold:0.2,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Sauvola
+
+ExpandOrShrinkObjects:[module_num:58|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the input objects:PLA_primary_objects
+    Name the output objects:PLA_shrunken
+    Select the operation:Shrink objects by a specified number of pixels
+    Number of pixels by which to expand or shrink:4
+    Fill holes in objects so that all objects shrink to a single point?:Yes
+    Expand or shrink measurement:None
+
+MeasureObjectNeighbors:[module_num:59|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select objects to measure:PLA_primary_objects
+    Select neighboring objects to measure:EGFR_primary
+    Method to determine neighbors:Expand until adjacent
+    Neighbor distance:5
+    Consider objects discarded for touching image border?:Yes
+    Retain the image of objects colored by numbers of neighbors?:No
+    Name the output image:ObjectNeighborCount
+    Select colormap:Blues
+    Retain the image of objects colored by percent of touching pixels?:No
+    Name the output image:PercentTouching
+    Select colormap:Oranges
+
+MeasureObjectSizeShape:[module_num:60|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select object sets to measure:Cells_mvHRas_2ndry, Nuclei_primary_objects, PLA_primary_objects
+    Calculate the Zernike features?:No
+    Calculate the advanced features?:No
+
+RelateObjects:[module_num:61|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Parent objects:EGFR_primary
+    Child objects:PLA_primary_objects
+    Calculate child-parent distances?:Both
+    Calculate per-parent means for all child measurements?:No
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:Yes
+    Name the output object:EGFR_PLA_RelatedObjects
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+
+RelateObjects:[module_num:62|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Parent objects:EGFR_primary
+    Child objects:PLA_shrunken
+    Calculate child-parent distances?:Both
+    Calculate per-parent means for all child measurements?:No
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:Yes
+    Name the output object:EGFR_PLA_RelatedObjects3
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+
+RelateObjects:[module_num:63|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+    Parent objects:Cells_mvHRas_2ndry
+    Child objects:EGFR_PLA_RelatedObjects
+    Calculate child-parent distances?:Both
+    Calculate per-parent means for all child measurements?:No
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:Yes
+    Name the output object:EGFR_PLA_coloc_per_cell
+    Parent name:None
+
+RelateObjects:[module_num:64|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Parent objects:Cells_mvHRas_2ndry
+    Child objects:PLA_primary_objects
+    Calculate child-parent distances?:Both
+    Calculate per-parent means for all child measurements?:Yes
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:Yes
+    Name the output object:PLA_mVHRas_RelatedObjects
+    Parent name:None
+
+RelateObjects:[module_num:65|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Parent objects:Cells_mvHRas_2ndry
+    Child objects:PLA_primary_objects
+    Calculate child-parent distances?:Both
+    Calculate per-parent means for all child measurements?:Yes
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:Yes
+    Name the output object:PLA_mVHRas_RelatedObjects
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+
+ClassifyObjects:[module_num:66|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Make classification decision based on:Single measurement
+    Hidden:1
+    Hidden:1
+    Select the object to be classified:PLA_primary_objects
+    Select the measurement to classify by:Children_EGFR_primary_Count
+    Select bin spacing:Custom-defined bins
+    Number of bins:3
+    Lower threshold:0.5
+    Use a bin for objects below the threshold?:Yes
+    Upper threshold:1.0
+    Use a bin for objects above the threshold?:Yes
+    Enter the custom thresholds separating the values between bins:0.3
+    Give each bin a name?:Yes
+    Enter the bin names separated by commas:NotColocalized,Colocalized
+    Retain an image of the classified objects?:No
+    Name the output image:ClassifiedNuclei
+    Select a class:None
+    Name the output objects:ClassifiedObjects
+    Select the object name:EGFR_primary
+    Select the first measurement:Children_Objects2_Count
+    Method to select the cutoff:Mean
+    Enter the cutoff value:0.5
+    Select the second measurement:None
+    Method to select the cutoff:Mean
+    Enter the cutoff value:0.5
+    Use custom names for the bins?:No
+    Enter the low-low bin name:low_low
+    Enter the low-high bin name:low_high
+    Enter the high-low bin name:high_low
+    Enter the high-high bin name:high_high
+    Retain an image of the classified objects?:No
+    Enter the image name:None
+    Save classes as new object sets?:No
+    Select the location of the classifier model file:Default Output Folder|None
+    Rules or classifier file name:None
+    Allow fuzzy feature matching?:No
+
+ExportToSpreadsheet:[module_num:67|svn_version:'Unknown'|variable_revision_number:13|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the column delimiter:Comma (",")
+    Add image metadata columns to your object data file?:Yes
+    Add image file and folder names to your object data file?:Yes
+    Select the measurements to export:Yes
+    Calculate the per-image mean values for object measurements?:No
+    Calculate the per-image median values for object measurements?:No
+    Calculate the per-image standard deviation values for object measurements?:No
+    Output file location:Default Output Folder|OneDrive - University of Virginia\\Images\\CellProfiler outputs (default folder)
+    Create a GenePattern GCT file?:No
+    Select source of sample row name:Metadata
+    Select the image to use as the identifier:None
+    Select the metadata to use as the identifier:None
+    Export all measurement types?:Yes
+    Press button to select measurements:PLA_mVHRas_RelatedObjects|Parent_PLA_primary_objects,PLA_mVHRas_RelatedObjects|Location_Center_X,PLA_mVHRas_RelatedObjects|Location_Center_Y,PLA_mVHRas_RelatedObjects|Location_Center_Z,PLA_mVHRas_RelatedObjects|Number_Object_Number,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Location_Center_Y,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Location_Center_X,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Location_Center_Z,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Children_EGFR_PLA_RelatedObjects_Count,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Distance_Centroid_Cells_mvHRas_2ndry,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Distance_Centroid_EGFR_primary,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Distance_Minimum_Cells_mvHRas_2ndry,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Distance_Minimum_EGFR_primary,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Neighbors_NumberOfNeighbors_EGFR_primary_Expanded,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Neighbors_AngleBetweenNeighbors_EGFR_primary_Expanded,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Neighbors_PercentTouching_EGFR_primary_Expanded,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Neighbors_SecondClosestDistance_EGFR_primary_Expanded,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Neighbors_FirstClosestDistance_EGFR_primary_Expanded,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Neighbors_SecondClosestObjectNumber_EGFR_primary_Expanded,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Neighbors_FirstClosestObjectNumber_EGFR_primary_Expanded,Cells_mvHRas_2ndry|Mean_PLA_primary_objects_Number_Object_Number,Cells_mvHRas_2ndry|AreaShape_Eccentricity,Cells_mvHRas_2ndry|AreaShape_EquivalentDiameter,Cells_mvHRas_2ndry|AreaShape_BoundingBoxMaximum_X,Cells_mvHRas_2ndry|AreaShape_BoundingBoxMaximum_Y,Cells_mvHRas_2ndry|AreaShape_EulerNumber,Cells_mvHRas_2ndry|AreaShape_Orientation,Cells_mvHRas_2ndry|AreaShape_Compactness,Cells_mvHRas_2ndry|AreaShape_Center_X,Cells_mvHRas_2ndry|AreaShape_Center_Y,Cells_mvHRas_2ndry|AreaShape_MaximumRadius,Cells_mvHRas_2ndry|AreaShape_MinorAxisLength,Cells_mvHRas_2ndry|AreaShape_Solidity,Cells_mvHRas_2ndry|AreaShape_BoundingBoxMinimum_Y,Cells_mvHRas_2ndry|AreaShape_BoundingBoxMinimum_X,Cells_mvHRas_2ndry|AreaShape_BoundingBoxArea,Cells_mvHRas_2ndry|AreaShape_MajorAxisLength,Cells_mvHRas_2ndry|AreaShape_MedianRadius,Cells_mvHRas_2ndry|AreaShape_MeanRadius,Cells_mvHRas_2ndry|AreaShape_Perimeter,Cells_mvHRas_2ndry|AreaShape_FormFactor,Cells_mvHRas_2ndry|AreaShape_MaxFeretDiameter,Cells_mvHRas_2ndry|AreaShape_Area,Cells_mvHRas_2ndry|AreaShape_ConvexArea,Cells_mvHRas_2ndry|AreaShape_Extent,Cells_mvHRas_2ndry|AreaShape_MinFeretDiameter,Cells_mvHRas_2ndry|Number_Object_Number,Cells_mvHRas_2ndry|Parent_Nuclei_primary_objects,Cells_mvHRas_2ndry|Children_PLA_primary_objects_Count,Cells_mvHRas_2ndry|Children_EGFR_PLA_RelatedObjects_Count,Cells_mvHRas_2ndry|Location_Center_X,Cells_mvHRas_2ndry|Location_Center_Z,Cells_mvHRas_2ndry|Location_Center_Y,Image|Count_PLA_mVHRas_RelatedObjects,Image|Count_PLA_primary_objects,Image|Count_EGFR_PLA_RelatedObjects,Image|Count_EGFR_PLA_coloc_per_cell,Image|Count_EGFR_primary,Image|Count_Cells_mvHRas,Image|Count_Cells_mvHRas_2ndry,Image|Count_Nuclei_primary_objects,Image|Metadata_FOV,Image|Metadata_FileLocation,Image|Metadata_Experiment,Image|Metadata_Magnification,Image|Metadata_Frame,Image|Metadata_Sample,Image|Metadata_Antibodies,Image|Metadata_Treatment,Image|Metadata_proj,Image|Metadata_zstack,Image|Metadata_Series,Image|Group_Number,Image|Group_Index,Image|FileName_Original,Image|Width_Original,Image|Height_Original,Nuclei_primary_objects|AreaShape_BoundingBoxMinimum_Y,Nuclei_primary_objects|AreaShape_BoundingBoxMinimum_X,Nuclei_primary_objects|AreaShape_FormFactor,Nuclei_primary_objects|AreaShape_EulerNumber,Nuclei_primary_objects|AreaShape_Orientation,Nuclei_primary_objects|AreaShape_EquivalentDiameter,Nuclei_primary_objects|AreaShape_MinorAxisLength,Nuclei_primary_objects|AreaShape_Compactness,Nuclei_primary_objects|AreaShape_Eccentricity,Nuclei_primary_objects|AreaShape_MajorAxisLength,Nuclei_primary_objects|AreaShape_MedianRadius,Nuclei_primary_objects|AreaShape_Extent,Nuclei_primary_objects|AreaShape_BoundingBoxMaximum_Y,Nuclei_primary_objects|AreaShape_BoundingBoxMaximum_X,Nuclei_primary_objects|AreaShape_MaximumRadius,Nuclei_primary_objects|AreaShape_MaxFeretDiameter,Nuclei_primary_objects|AreaShape_Center_Y,Nuclei_primary_objects|AreaShape_Center_X,Nuclei_primary_objects|AreaShape_Area,Nuclei_primary_objects|AreaShape_BoundingBoxArea,Nuclei_primary_objects|AreaShape_Solidity,Nuclei_primary_objects|AreaShape_MeanRadius,Nuclei_primary_objects|AreaShape_ConvexArea,Nuclei_primary_objects|AreaShape_Perimeter,Nuclei_primary_objects|AreaShape_MinFeretDiameter,Nuclei_primary_objects|Location_Center_X,Nuclei_primary_objects|Location_Center_Y,Nuclei_primary_objects|Location_Center_Z,Nuclei_primary_objects|Number_Object_Number,Nuclei_primary_objects|Children_Cells_mvHRas_2ndry_Count,PLA_primary_objects|Number_Object_Number,PLA_primary_objects|AreaShape_MinorAxisLength,PLA_primary_objects|AreaShape_Center_Y,PLA_primary_objects|AreaShape_Center_X,PLA_primary_objects|AreaShape_MajorAxisLength,PLA_primary_objects|AreaShape_Eccentricity,PLA_primary_objects|AreaShape_Area,PLA_primary_objects|Distance_Minimum_Cells_mvHRas_2ndry,PLA_primary_objects|Distance_Minimum_EGFR_primary,PLA_primary_objects|Distance_Centroid_Cells_mvHRas_2ndry,PLA_primary_objects|Distance_Centroid_EGFR_primary,PLA_primary_objects|Neighbors_SecondClosestObjectNumber_EGFR_primary_Expanded,PLA_primary_objects|Neighbors_PercentTouching_EGFR_primary_Expanded,PLA_primary_objects|Neighbors_FirstClosestObjectNumber_EGFR_primary_Expanded,PLA_primary_objects|Neighbors_AngleBetweenNeighbors_EGFR_primary_Expanded,PLA_primary_objects|Neighbors_FirstClosestDistance_EGFR_primary_Expanded,PLA_primary_objects|Neighbors_SecondClosestDistance_EGFR_primary_Expanded,PLA_primary_objects|Neighbors_NumberOfNeighbors_EGFR_primary_Expanded,PLA_primary_objects|Children_EGFR_PLA_RelatedObjects_Count,PLA_primary_objects|Children_PLA_mVHRas_RelatedObjects_Count,PLA_primary_objects|Location_Center_Z,PLA_primary_objects|Location_Center_Y,PLA_primary_objects|Location_Center_X,PLA_primary_objects|Parent_EGFR_primary,PLA_primary_objects|Parent_Cells_mvHRas_2ndry,EGFR_primary|Location_Center_X,EGFR_primary|Location_Center_Y,EGFR_primary|Location_Center_Z,EGFR_primary|Children_PLA_primary_objects_Count,EGFR_primary|Number_Object_Number,EGFR_PLA_coloc_per_cell|Location_Center_Z,EGFR_PLA_coloc_per_cell|Location_Center_Y,EGFR_PLA_coloc_per_cell|Location_Center_X,EGFR_PLA_coloc_per_cell|Parent_EGFR_PLA_RelatedObjects,EGFR_PLA_coloc_per_cell|Number_Object_Number,EGFR_PLA_RelatedObjects|Location_Center_Z,EGFR_PLA_RelatedObjects|Location_Center_Y,EGFR_PLA_RelatedObjects|Location_Center_X,EGFR_PLA_RelatedObjects|Distance_Centroid_Cells_mvHRas_2ndry,EGFR_PLA_RelatedObjects|Distance_Minimum_Cells_mvHRas_2ndry,EGFR_PLA_RelatedObjects|Number_Object_Number,EGFR_PLA_RelatedObjects|Parent_Cells_mvHRas_2ndry,EGFR_PLA_RelatedObjects|Parent_PLA_primary_objects,EGFR_PLA_RelatedObjects|Children_EGFR_PLA_coloc_per_cell_Count
+    Representation of Nan/Inf:Null
+    Add a prefix to file names?:Yes
+    Filename prefix:G1S2_PLA-puncta-quant_40x+_max-zproj_2-10-23_
+    Overwrite existing files without warning?:No
+    Data to export:Image
+    Combine these object measurements with those of the previous object?:No
+    File name:DATA.csv
+    Use the object name for the file name?:Yes
