@@ -93,7 +93,7 @@ toc
 % the Julia code associated with this repository/project (which are loaded
 % from the CSV file "parameter_ensemble.csv".
 
-N_spls = 100; % number of samples to draw from parameter distributions for ensemble simulations
+N_spls = 2000; % number of samples to draw from parameter distributions for ensemble simulations
 idxs = randi([1, size(T,1)], N_spls, 1);    % indices of samples to draw from param distributions
 
 aSFK_res = zeros([size(sol.aSFK) N_spls]);
